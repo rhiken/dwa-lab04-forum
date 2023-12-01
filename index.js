@@ -12,8 +12,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Define the database connection
 const db = mysql.createConnection({
   host: "localhost",
-  user: "appuser",
-  password: "app2027",
+  user: "forumuser",
+  password: "forum2027",
   database: "myForum",
 });
 // Connect to the database
