@@ -15,7 +15,7 @@ module.exports = function (app, forumData) {
     app.get("/searchpost", function (req, res) {
         res.render("searchpost.ejs", forumData);
     });
-    app.get("topics", function (req, res) {
+    app.get("/topics", function (req, res) {
         res.render("topics.ejs", forumData);
     });
     app.get("/users", function (req, res) {
