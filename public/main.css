@@ -1,43 +1,70 @@
+/* Background*/
+body {
+  background-color: #406153;
+  margin: 0;
+}
+
+/* TEXT STYLES*/
+
 h1 {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
-    color: darkcyan;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 30px;
+  color: #24E090;
+  background-color: #2d443a;
+  padding: 20px;
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
 }
 
-h2 {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
-    color: cadetblue;
-}
-
-p,li {
-    font-family: Arial, Helvetica, sans-serif;
+p,
+li {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 a:link {
-    color: orangered;
-    text-decoration: none;
-    padding:5px;
-  }
-  
-  /* visited link */
-  a:visited {
-    color: tomato;
-    text-decoration: none;
-    padding:5px;
-  }
-  
-  /* mouse over link */
-  a:hover {
-    color: white;
-    text-decoration: none;
-    background-color: orangered;
-    padding:5px;
-  }
-  
-  /* selected link */
-  a:active {
-    color: blue;
-    text-decoration: none;
-    padding:5px;
-  }
+  color: #E06854;
+  text-decoration: none;
+  padding: 5px;
+}
+
+/* visited link */
+a:visited {
+  color: tomato;
+  text-decoration: none;
+  padding: 5px;
+}
+
+/* mouse over link */
+a:hover {
+  color: #406153;
+  text-decoration: none;
+  background-color: #E06854;
+  padding: 5px;
+}
+
+/* selected link */
+a:active {
+  color: blue;
+  text-decoration: none;
+  padding: 5px;
+}
+
+/*NAVIGATION BAR*/
+.navbar {
+  background-color: #FCA311;
+  text-align: center;
+  padding: 10px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #14213D;
+  font-size: 20px;
+
+}
+
+.navbar a:hover {
+  color: #E5E5E5;
+}
