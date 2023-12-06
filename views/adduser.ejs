@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add User</title>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+  </head>
+  <body>
+    <h1>Sign up</h1>
+    <!--
+      Uses a form to add user to the database. The form then links to
+      the SQL query in main.js.
+    -->
+    <form method="POST" action="/useradded">
+      <p>
+        Username: <input id="name" type="text" name="name" value="Username" />
+      </p>
+      <input type="submit" value="Add Username" />
+    </form>
+  </body>
+</html>
