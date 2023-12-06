@@ -18,7 +18,7 @@ module.exports = function (app, forumData) {
 
     // Post Page
     app.get("/posts", function (req, res) {
-        res.render("posts.ejs", forumData);
+        res.render("listposts.ejs", forumData);
     });
 
     // Search Post Page
