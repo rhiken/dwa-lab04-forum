@@ -16,6 +16,26 @@ module.exports = function (app, forumData) {
         res.render("addpost.ejs", forumData);
     });
 
+    // Post Added Page
+    app.post("/postadded", function (req, res) {
+        let sqlquery = "INSERT INTO post (title, content, username) VALUES (?,?,?)";
+        let newrecord = [req.body.title, req.body.content, req.body.username];
+        db.query(sqlquery, newrecord, (err, result) => {
+          if (err) {
+            return console.error(err.message);
+          } else {
+            res.send(
+              "Thank you for submitting your post, " +
+                req.body.username +
+                ". Here is what you submitted. Title: " +
+                req.body.title +
+                ". Content: " +
+                req.body.content
+            );
+          }
+        });
+      });
+
     // Post Page
     app.get("/posts", function (req, res) {
         // Query myForum for all posts
