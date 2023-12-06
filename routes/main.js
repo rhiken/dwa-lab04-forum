@@ -39,7 +39,18 @@ module.exports = function (app, forumData) {
 
     // Topic Page
     app.get("/topics", function (req, res) {
-        res.render("topics.ejs", forumData);
+        // Query myForum for all topics
+        let sqlquery = "SELECT * FROM topic";
+        // Execute the query
+        db.query(sqlquery, function (err, result) {
+            if (err) {
+                res.redirect("./");
+            }
+            let topicData = Object.assign({}, forumData, { topics: result });
+            console.log(topicData);
+            // Render the topics page
+            res.render("topics.ejs", {topics: result});
+        });
     });
 
     // User Page
