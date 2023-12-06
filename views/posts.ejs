@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>View all posts to the <%=forumName%> here</title>
+    <title>List Posts</title>
     <link rel="stylesheet" type="text/css" href="/main.css" />
   </head>
   <body>
-    <h1><%=forumName%> Posts</h1>
-    <p>TODO: INSERT CONTENT HERE</p>
-
+    <% posts.forEach(function(post) { %>
+        <h2><%= post.title %></h2>
+        <p><%= post.content %></p>
+    <% }); %>
   </body>
 </html>

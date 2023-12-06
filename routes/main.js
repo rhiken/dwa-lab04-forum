@@ -18,7 +18,18 @@ module.exports = function (app, forumData) {
 
     // Post Page
     app.get("/posts", function (req, res) {
-        res.render("listposts.ejs", forumData);
+        // Query myForum for all posts
+        let sqlquery = "SELECT * FROM post";
+        // Execute the query
+        db.query(sqlquery, function (err, result) {
+            if (err) {
+                res.redirect("./");
+            }
+            let postData = Object.assign({}, forumData, { posts: result });
+            console.log(postData);
+            // Render the posts page
+            res.render("posts.ejs", {posts: result});
+        });
     });
 
     // Search Post Page
