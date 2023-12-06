@@ -44,6 +44,17 @@ module.exports = function (app, forumData) {
 
     // User Page
     app.get("/users", function (req, res) {
-        res.render("users.ejs", forumData);
+        // Query myForum for all users
+        let sqlquery = "SELECT * FROM user";
+        // Execute the query
+        db.query(sqlquery, function (err, result) {
+            if (err) {
+                res.redirect("./");
+            }
+            let userData = Object.assign({}, forumData, { users: result });
+            console.log(userData);
+            // Render the users page
+            res.render("users.ejs", {users: result});
+        });
     });
   };

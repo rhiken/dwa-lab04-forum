@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>The users of the <%=forumName%></title>
+    <title>List Posts</title>
     <link rel="stylesheet" type="text/css" href="/main.css" />
   </head>
   <body>
-    <h1>All <%=forumName%> users here</h1>
-    <p>TODO: INSERT CONTENT HERE</p>
+    <% users.forEach(function(user) { %>
+        <h2><%= user.username %></h2>
+    <% }); %>
   </body>
 </html>
