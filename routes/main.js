@@ -39,7 +39,7 @@ module.exports = function (app, forumData) {
 
   // Added User
   app.post("/addeduser", function (req, res) {
-    res.send(res.body.username + " , thank you for signing up.");
+    res.send(req.body.username + " , thank you for signing up.");
   });
 
 
