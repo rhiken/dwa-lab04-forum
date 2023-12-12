@@ -11,10 +11,41 @@ module.exports = function (app, forumData) {
     res.render("about.ejs", forumData);
   });
 
-  // Add Post Page
-  app.get("/addpost", function (req, res) {
-    res.render("addpost.ejs", forumData);
+
+  ///////////
+  // USERS //
+  ///////////
+
+  // User Page
+  app.get("/users", function (req, res) {
+    // Query myForum for all users
+    let sqlquery = "SELECT * FROM user";
+    // Execute the query
+    db.query(sqlquery, function (err, result) {
+      if (err) {
+        res.redirect("./");
+      }
+      let userData = Object.assign({}, forumData, { users: result });
+      //console.log(userData);
+      // Render the users page
+      res.render("users.ejs", { users: result });
+    });
   });
+
+  // Add User
+  app.get("/adduser", function (req, res) {
+    res.render("adduser.ejs", forumData);
+  });
+
+  // Added User
+  app.post("/addeduser", function (req, res) {
+    res.send(res.body.username + " , thank you for signing up.");
+  });
+
+
+  ///////////
+  // POSTS //
+  ///////////
 
   // Post Added Page
   app.post("/postadded", function (req, res) {
@@ -57,6 +88,36 @@ module.exports = function (app, forumData) {
     res.render("searchpost.ejs", forumData);
   });
 
+  // Add Post Page
+  app.get("/addpost", function (req, res) {
+    res.render("addpost.ejs", forumData);
+  });
+
+  // Post Added Page
+  app.post("/postadded", function (req, res) {
+    let sqlquery = "INSERT INTO post (title, content, username) VALUES (?,?,?)";
+    let newrecord = [req.body.title, req.body.content, req.body.username];
+    db.query(sqlquery, newrecord, (err, result) => {
+      if (err) {
+        return console.error(err.message);
+      } else {
+        res.send(
+          "Thank you for submitting your post, " +
+            req.body.username +
+            ". Here is what you submitted. Title: " +
+            req.body.title +
+            ". Content: " +
+            req.body.content
+        );
+      }
+    });
+  });
+  
+
+  ////////////
+  // TOPICS //
+  ////////////
+
   // Topic Page
   app.get("/topics", function (req, res) {
     // Query myForum for all topics
@@ -72,61 +133,4 @@ module.exports = function (app, forumData) {
       res.render("topics.ejs", { topics: result });
     });
   });
-
-  // User Page
-  app.get("/users", function (req, res) {
-    // Query myForum for all users
-    let sqlquery = "SELECT * FROM user";
-    // Execute the query
-    db.query(sqlquery, function (err, result) {
-      if (err) {
-        res.redirect("./");
-      }
-      let userData = Object.assign({}, forumData, { users: result });
-      //console.log(userData);
-      // Render the users page
-      res.render("users.ejs", { users: result });
-    });
-  });
-
-  // Add User
-  app.get("/adduser", function (req, res) {
-    res.render("adduser.ejs", forumData);
-  });
-
-  // Added User
-  app.post("/addeduser", function (req,res){
-    // Create SQL query
-    let sqlquery = "INSERT INTO user (username) VALUES (?)";
-    let newrecord = [req.body.username];
-    // Execute query
-    db.query(sqlquery, newrecord, (err, result) => {
-        if (err) {
-            return console.error(err.message);
-          } else {
-            res.send(res.body.username + " , thank you for signing up.")
-            }
-    });
-  })
-
-
-    // Post Added Page
-    app.post("/postadded", function (req, res) {
-        let sqlquery = "INSERT INTO post (title, content, username) VALUES (?,?,?)";
-        let newrecord = [req.body.title, req.body.content, req.body.username];
-        db.query(sqlquery, newrecord, (err, result) => {
-          if (err) {
-            return console.error(err.message);
-          } else {
-            res.send(
-              "Thank you for submitting your post, " +
-                req.body.username +
-                ". Here is what you submitted. Title: " +
-                req.body.title +
-                ". Content: " +
-                req.body.content
-            );
-          }
-        });
-      });
 };
