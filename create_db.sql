@@ -9,25 +9,27 @@ USE myForum;
 DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post` (
   `post_id` int NOT NULL AUTO_INCREMENT,
-  `post_title` varchar(20) NOT NULL,
-  `post_content` text NOT NULL,
-  `post_userid` int NOT NULL,
-  `post_topicid` int NOT NULL,
+  `title` varchar(20) DEFAULT NULL,
+  `content` text,
+  `userid` int DEFAULT NULL,
+  `topicid` int DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `username` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`post_id`),
   UNIQUE KEY `post_id_UNIQUE` (`post_id`),
-  UNIQUE KEY `post_title_UNIQUE` (`post_title`),
-  KEY `FK_Username_idx` (`post_userid`),
-  KEY `FK_post_topicid_idx` (`post_topicid`),
-  CONSTRAINT `FK_post_topicid` FOREIGN KEY (`post_topicid`) REFERENCES `topic` (`topic_id`),
-  CONSTRAINT `FK_post_userid` FOREIGN KEY (`post_userid`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `post_title_UNIQUE` (`title`),
+  KEY `FK_post_topicid_idx` (`topicid`),
+  KEY `FK_post_username_idx` (`username`),
+  CONSTRAINT `FK_post_topicid` FOREIGN KEY (`topicid`) REFERENCES `topic` (`topic_id`),
+  CONSTRAINT `FK_post_username` FOREIGN KEY (`username`) REFERENCES `user` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS `reply`;
 CREATE TABLE `reply` (
   `reply_id` int NOT NULL AUTO_INCREMENT,
-  `reply_content` text NOT NULL,
-  `reply_author` int NOT NULL,
-  `reply_originalpost` int NOT NULL,
+  `reply_content` text,
+  `reply_author` int DEFAULT NULL,
+  `reply_originalpost` int DEFAULT NULL,
   PRIMARY KEY (`reply_id`),
   UNIQUE KEY `reply_id_UNIQUE` (`reply_id`),
   KEY `FK_reply_userid_idx` (`reply_author`),
@@ -39,21 +41,21 @@ CREATE TABLE `reply` (
 DROP TABLE IF EXISTS `topic`;
 CREATE TABLE `topic` (
   `topic_id` int NOT NULL AUTO_INCREMENT,
-  `topic_name` varchar(20) NOT NULL,
+  `name` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`topic_id`),
   UNIQUE KEY `topic_id_UNIQUE` (`topic_id`),
-  UNIQUE KEY `topic_name_UNIQUE` (`topic_name`),
+  UNIQUE KEY `topic_name_UNIQUE` (`name`),
   CONSTRAINT `topic_author` FOREIGN KEY (`topic_id`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `user_id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(20) NOT NULL,
+  `username` varchar(20) DEFAULT NULL,
   `topic_privileges` int DEFAULT NULL,
   PRIMARY KEY (`user_id`),
-  UNIQUE KEY `username_UNIQUE` (`username`),
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
+  UNIQUE KEY `username_UNIQUE` (`username`),
   KEY `FK_user_topicid_idx` (`topic_privileges`),
   CONSTRAINT `FK_user_topicid` FOREIGN KEY (`topic_privileges`) REFERENCES `topic` (`topic_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
