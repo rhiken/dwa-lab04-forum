@@ -6,7 +6,6 @@ USE `myforum`;
 
 # Create the tables
 
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `user_id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(20) DEFAULT NULL,
@@ -18,7 +17,6 @@ CREATE TABLE `user` (
   CONSTRAINT `FK_user_topicid` FOREIGN KEY (`topic_privileges`) REFERENCES `topic` (`topic_id`)
 );
 
-DROP TABLE IF EXISTS `topic`;
 CREATE TABLE `topic` (
   `topic_id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(20) DEFAULT NULL,
@@ -27,7 +25,6 @@ CREATE TABLE `topic` (
   UNIQUE KEY `topic_name_UNIQUE` (`name`)
 );
 
-DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post` (
   `post_id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(20) DEFAULT NULL,
@@ -45,7 +42,6 @@ CREATE TABLE `post` (
   CONSTRAINT `FK_post_username` FOREIGN KEY (`username`) REFERENCES `user` (`username`)
 );
 
-DROP TABLE IF EXISTS `reply`;
 CREATE TABLE `reply` (
   `reply_id` int NOT NULL AUTO_INCREMENT,
   `reply_content` text,
