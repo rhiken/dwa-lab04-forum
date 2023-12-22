@@ -6,6 +6,27 @@ USE `myforum`;
 
 # Create the tables
 
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `user_id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(20) DEFAULT NULL,
+  `topic_privileges` int DEFAULT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `user_id_UNIQUE` (`user_id`),
+  UNIQUE KEY `username_UNIQUE` (`username`),
+  KEY `FK_user_topicid_idx` (`topic_privileges`),
+  CONSTRAINT `FK_user_topicid` FOREIGN KEY (`topic_privileges`) REFERENCES `topic` (`topic_id`)
+);
+
+DROP TABLE IF EXISTS `topic`;
+CREATE TABLE `topic` (
+  `topic_id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`topic_id`),
+  UNIQUE KEY `topic_id_UNIQUE` (`topic_id`),
+  UNIQUE KEY `topic_name_UNIQUE` (`name`)
+);
+
 DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post` (
   `post_id` int NOT NULL AUTO_INCREMENT,
@@ -38,28 +59,7 @@ CREATE TABLE `reply` (
   CONSTRAINT `FK_reply_userid` FOREIGN KEY (`reply_author`) REFERENCES `user` (`user_id`)
 );
 
-DROP TABLE IF EXISTS `topic`;
-CREATE TABLE `topic` (
-  `topic_id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`topic_id`),
-  UNIQUE KEY `topic_id_UNIQUE` (`topic_id`),
-  UNIQUE KEY `topic_name_UNIQUE` (`name`),
-  CONSTRAINT `topic_author` FOREIGN KEY (`topic_id`) REFERENCES `user` (`user_id`)
-);
-
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `user_id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(20) DEFAULT NULL,
-  `topic_privileges` int DEFAULT NULL,
-  PRIMARY KEY (`user_id`),
-  UNIQUE KEY `user_id_UNIQUE` (`user_id`),
-  UNIQUE KEY `username_UNIQUE` (`username`),
-  KEY `FK_user_topicid_idx` (`topic_privileges`),
-  CONSTRAINT `FK_user_topicid` FOREIGN KEY (`topic_privileges`) REFERENCES `topic` (`topic_id`)
-);
-
 # Create the app user and give it access to the database
 CREATE USER 'forumuser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'forum2027';
 GRANT ALL PRIVILEGES ON myforum.* TO 'forumuser'@'localhost';
+
