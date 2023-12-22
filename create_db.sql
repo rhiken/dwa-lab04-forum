@@ -1,7 +1,7 @@
 # Create database script for Thought Exchange
 
 # Create the database
-CREATE DATABASE  IF NOT EXISTS `myforum`;
+CREATE DATABASE IF NOT EXISTS `myforum`;
 USE `myforum`;
 
 # Create the tables
@@ -22,7 +22,7 @@ CREATE TABLE `post` (
   KEY `FK_post_username_idx` (`username`),
   CONSTRAINT `FK_post_topicid` FOREIGN KEY (`topicid`) REFERENCES `topic` (`topic_id`),
   CONSTRAINT `FK_post_username` FOREIGN KEY (`username`) REFERENCES `user` (`username`)
-) 
+);
 
 DROP TABLE IF EXISTS `reply`;
 CREATE TABLE `reply` (
@@ -36,7 +36,8 @@ CREATE TABLE `reply` (
   KEY `FK_reply_postid_idx` (`reply_originalpost`),
   CONSTRAINT `FK_reply_postid` FOREIGN KEY (`reply_originalpost`) REFERENCES `post` (`post_id`),
   CONSTRAINT `FK_reply_userid` FOREIGN KEY (`reply_author`) REFERENCES `user` (`user_id`)
-) 
+);
+
 DROP TABLE IF EXISTS `topic`;
 CREATE TABLE `topic` (
   `topic_id` int NOT NULL AUTO_INCREMENT,
@@ -45,7 +46,7 @@ CREATE TABLE `topic` (
   UNIQUE KEY `topic_id_UNIQUE` (`topic_id`),
   UNIQUE KEY `topic_name_UNIQUE` (`name`),
   CONSTRAINT `topic_author` FOREIGN KEY (`topic_id`) REFERENCES `user` (`user_id`)
-) 
+);
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -57,8 +58,8 @@ CREATE TABLE `user` (
   UNIQUE KEY `username_UNIQUE` (`username`),
   KEY `FK_user_topicid_idx` (`topic_privileges`),
   CONSTRAINT `FK_user_topicid` FOREIGN KEY (`topic_privileges`) REFERENCES `topic` (`topic_id`)
-) 
+);
 
 # Create the app user and give it access to the database
 CREATE USER 'forumuser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'forum2027';
-GRANT ALL PRIVILEGES ON myForum.* TO 'forumuser'@'localhost';
+GRANT ALL PRIVILEGES ON myforum.* TO 'forumuser'@'localhost';
