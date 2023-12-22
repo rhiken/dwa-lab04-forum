@@ -81,3 +81,10 @@ a:active {
   text-align: center;
 }
 
+/* style the lists*/
+.list {
+  margin: 30;
+  padding: 30;
+  text-align: center;
+  width: 100%;
+}
