@@ -25,8 +25,6 @@ module.exports = function (app, forumData) {
       if (err) {
         res.redirect("./");
       }
-      let userData = Object.assign({}, forumData, { users: result });
-      //console.log(userData);
       // Render the users page
       res.render("users.ejs", { users: result });
     });
@@ -39,7 +37,19 @@ module.exports = function (app, forumData) {
 
   // Added User
   app.post("/addeduser", function (req, res) {
-    res.send(req.body.username + " , thank you for signing up.");
+    let sqlquery = "INSERT INTO user (username) VALUES (?)";
+    let newrecord = [req.body.username];
+    db.query(sqlquery, newrecord, (err, result) => {
+      if (err) {
+        return console.error(err.message);
+      } else {
+        res.send(
+          "Thank you for submitting your username, " +
+            req.body.username +
+            "."
+        );
+      }
+    });
   });
 
 
