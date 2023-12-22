@@ -25,6 +25,7 @@ module.exports = function (app, forumData) {
       if (err) {
         res.redirect("./");
       }
+
       // Render the users page
       res.render("users.ejs", { users: result });
     });
@@ -103,8 +104,8 @@ module.exports = function (app, forumData) {
 
   // Post Added Page
   app.post("/postadded", function (req, res) {
-    let sqlquery = "INSERT INTO post (title, content, username) VALUES (?,?,?)";
-    let newrecord = [req.body.title, req.body.content, req.body.username];
+    let sqlquery = "INSERT INTO post (title, content, username, topic) VALUES (?,?,?,?)";
+    let newrecord = [req.body.title, req.body.content, req.body.username, req.body.topic];
     db.query(sqlquery, newrecord, (err, result) => {
       if (err) {
         return console.error(err.message);
@@ -114,6 +115,8 @@ module.exports = function (app, forumData) {
             req.body.username +
             ". Here is what you submitted. Title: " +
             req.body.title +
+            ". Topic: " +
+            req.body.topic +
             ". Content: " +
             req.body.content
         );
