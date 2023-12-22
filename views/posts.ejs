@@ -6,10 +6,12 @@
   </head>
   <body>
     <% posts.forEach(function(post) { %>
-        <h2><%= post.title %></h2>
-        <p><%= post.topicname %></p>
-        <p><%= post.content %></p>
-        <p><%= post.username %></p>
+      <div class="post">
+        <h2 class="subpost"><%= post.title %></h2>
+        <p class="subpost"><%= post.topicname %></p>
+        <p class="subpost"><%= post.content %></p>
+        <p class="subpost"><%= post.username %></p>
+      </div>
     <% }); %>
   </body>
 </html>
