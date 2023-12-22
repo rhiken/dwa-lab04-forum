@@ -1,8 +1,8 @@
 # Create database script for Thought Exchange
 
 # Create the database
-CREATE DATABASE myForum;
-USE myForum;
+CREATE DATABASE  IF NOT EXISTS `myforum`;
+USE `myforum`;
 
 # Create the tables
 
