@@ -76,8 +76,6 @@ module.exports = function (app, forumData) {
       if (err) {
         res.redirect("./");
       }
-      let postData = Object.assign({}, forumData, { posts: result });
-      console.log(postData);
       // Render the posts page
       res.render("posts.ejs", { posts: result });
     });
@@ -127,8 +125,6 @@ module.exports = function (app, forumData) {
       if (err) {
         res.redirect("./");
       }
-      let topicData = Object.assign({}, forumData, { topics: result });
-      //console.log(topicData);
       // Render the topics page
       res.render("topics.ejs", { topics: result });
     });
