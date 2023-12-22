@@ -87,6 +87,7 @@ module.exports = function (app, forumData) {
       if (err) {
         res.redirect("./");
       }
+      console.log(result); 
       // Render the posts page
       res.render("posts.ejs", { posts: result });
     });
@@ -102,10 +103,10 @@ module.exports = function (app, forumData) {
     res.render("addpost.ejs", forumData);
   });
 
-  // Post Added Page
+  // Post Added Page // topicname not working
   app.post("/postadded", function (req, res) {
-    let sqlquery = "INSERT INTO post (title, content, username, topic) VALUES (?,?,?,?)";
-    let newrecord = [req.body.title, req.body.content, req.body.username, req.body.topic];
+    let sqlquery = "INSERT INTO post (title, content, username, topicname) VALUES (?,?,?,?)";
+    let newrecord = [req.body.title, req.body.content, req.body.username, req.body.topicname];
     db.query(sqlquery, newrecord, (err, result) => {
       if (err) {
         return console.error(err.message);
@@ -116,7 +117,7 @@ module.exports = function (app, forumData) {
             ". Here is what you submitted. Title: " +
             req.body.title +
             ". Topic: " +
-            req.body.topic +
+            req.body.topicname +
             ". Content: " +
             req.body.content
         );
