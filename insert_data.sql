@@ -1,4 +1,4 @@
-USE myForum;
+USE myforum;
 
 INSERT INTO `user` (`username`, `topic_privileges`) VALUES
 ('Amy', 1),
